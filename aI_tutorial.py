@@ -28,17 +28,16 @@ def ask_to_gpt(messages):
     #     temperature=0.1,
     #     messages=messages,
     # )
-    response = client.chat.completions.create(
-    model="gpt-3.5-turbo",
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Who won the world series in 2020?"},
-        {"role": "assistant", "content": "The Los Angeles Dodgers won the World Series in 2020."},
-        {"role": "user", "content": "Where was it played?"}
-    ]
+    response = client.images.generate(
+    model="dall-e-3",
+    prompt="a white siamese cat",
+    size="1024x1024",
+    quality="standard",
+    n=1,
     )
 
-    print(response.choices[0].message.content)
+    image_url = response.data[0].url
+    return image_url
 
 
 messages=[
