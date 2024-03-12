@@ -17,7 +17,6 @@ openai_api_key = os.getenv("NEW_API_KEY")
 # 이 API 키를 사용하여 OpenAI API 등에 요청을 보낼 수 있습니다.
 
 # OpenAI API Key
-api_key = openai_api_key
 
 # Function to encode the image
 def encode_image(image_path):
@@ -32,7 +31,7 @@ base64_image = encode_image(image_path)
 
 headers = {
   "Content-Type": "application/json",
-  "Authorization": f"Bearer {api_key}"
+  "Authorization": f"Bearer {openai_api_key}"
 }
 
 payload = {
@@ -59,4 +58,6 @@ payload = {
 
 response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
 
-print(response.json())
+response_json_data = response.json()
+
+print(response_json_data['choices'][0]['message']['content'])

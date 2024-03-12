@@ -19,7 +19,7 @@ response = client.chat.completions.create(
   response_format={ "type": "json_object" },
   messages=[
     {"role": "system", "content": "You are a helpful assistant designed to output JSON."},
-    {"role": "user", "content": "고객만족도 조사를 만들려고 하는데 어떻게 만드는 게 좋을까?"}
+    {"role": "user", "content": "커피를 추천해줘"}
   ]
 )
 print(response.choices[0].message.content)
