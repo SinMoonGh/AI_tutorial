@@ -1,8 +1,7 @@
 from dotenv import load_dotenv
 from openai import OpenAI
 import os
-from PIL import Image
-import requests
+
 
 # .env 파일에서 환경 변수를 로드합니다.
 load_dotenv()
@@ -15,18 +14,12 @@ client = OpenAI(api_key=openai_api_key)
 
 # 이 API 키를 사용하여 OpenAI API 등에 요청을 보낼 수 있습니다.
 
-# 이미지 웹 주소
-url = "https://s2.paultan.org/image/2013/05/Lamborghini_Egoista_Concept_07.jpg"
-
-# 이미지 파일 저장 경로
-filename = "example.jpg"
-
-# 이미지 데이터 요청
-response = requests.get(url)
-
-# 이미지 파일 저장
-with open(filename, "wb") as f:
-    f.write(response.content)
-
-# 이미지 열기
-Image.open(filename)
+response = client.chat.completions.create(
+  model="gpt-3.5-turbo-0125",
+  response_format={ "type": "json_object" },
+  messages=[
+    {"role": "system", "content": "You are a helpful assistant designed to output JSON."},
+    {"role": "user", "content": "고객만족도 조사를 만들려고 하는데 어떻게 만드는 게 좋을까?"}
+  ]
+)
+print(response.choices[0].message.content)
